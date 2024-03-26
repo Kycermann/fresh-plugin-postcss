@@ -10,6 +10,7 @@ Recommended to use with a Fresh build step (`deno task build`).
 
 ```ts
 import { FreshConfig } from "$fresh/server.ts";
+import { asset } from "$fresh/runtime.ts";
 
 import { compileArticles } from "./utils/article.js";
 import { compilePostCss } from "./utils/postcss.ts";
@@ -42,7 +43,11 @@ export const config = {
           cssAutoprefixer,
           cssPresetEnv,
         ];
-      }
+      },
+
+      // Pass in {asset} from Fresh's runtime
+      // (Not included in the plugin to avoid importing another Fresh version)
+      asset,
     }),
   ],
 } satisfies FreshConfig;

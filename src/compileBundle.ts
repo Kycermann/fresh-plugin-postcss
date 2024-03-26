@@ -1,3 +1,4 @@
+import { POSTCSS_MODULE_PATH, WALK_MODULE_PATH } from "../constants.ts";
 import { PostCssOptions } from "../types.ts";
 
 export async function compileBundle({ walkPath, exts, plugins }: PostCssOptions) {
@@ -7,8 +8,8 @@ export async function compileBundle({ walkPath, exts, plugins }: PostCssOptions)
     { default: postcss },
     resolvedPlugins,
   ] = await Promise.all([
-    import("https://deno.land/std@0.207.0/fs/walk.ts"),
-    import("https://deno.land/x/postcss@8.4.16/mod.js"),
+    import(WALK_MODULE_PATH),
+    import(POSTCSS_MODULE_PATH),
     (async () => {
       // Resolve the plugins if {plugins} is a function
       if (typeof plugins === "function") {
@@ -33,15 +34,18 @@ export async function compileBundle({ walkPath, exts, plugins }: PostCssOptions)
   };
 
   const filesIterator = walk(walkPath ?? "./static", optionsForWalk);
-  
-  const allCompiledCss = await Array.fromAsync(filesIterator, async ({ path }) => {
-    const body = await Deno.readTextFile(path);
-    const compiledCss = await postcss(resolvedPlugins as any).process(body, { from: path });
 
-    return compiledCss;
-  });
+  const allCompiledCss = await Array.fromAsync(
+    filesIterator,
+    async ({ path }: { path: string }) => {
+      const body = await Deno.readTextFile(path);
+      const compiledCss = await postcss(resolvedPlugins as any).process(body, { from: path });
 
-  const bundle = allCompiledCss.map(({ css }) => css).join("\n");
+      return compiledCss;
+    },
+  );
+
+  const bundle = allCompiledCss.map(({ css }: any) => css).join("\n");
 
   return bundle;
 }

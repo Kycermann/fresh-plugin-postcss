@@ -6,7 +6,6 @@
     "test": "deno test --no-prompt -A",
     "test:watch": "deno test src/ -A --watch"
   },
-  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "lint": {
     "rules": {
       "tags": ["recommended", "fresh"],
@@ -26,14 +25,5 @@
     "indentWidth": 2,
     "singleQuote": false,
     "proseWrap": "preserve"
-  },
-  "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.6.8/",
-    "preact-render-to-string": "https://esm.sh/v135/*preact-render-to-string@5.2.6",
-    "preact-render-to-string/": "https://esm.sh/v135/*preact-render-to-string@5.2.6/",
-    "preact": "https://esm.sh/preact@10.19.6",
-    "preact/": "https://esm.sh/preact@10.19.6/"
-  },
-  "exclude": ["**/_fresh/*"],
-  "scopes": {}
+  }
 }
