@@ -1,0 +1,39 @@
+{
+  "tasks": {
+    "format": "deno fmt",
+    "format:check": "deno fmt --check",
+    "lint:check": "deno lint",
+    "test": "deno test --no-prompt -A",
+    "test:watch": "deno test src/ -A --watch"
+  },
+  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
+  "lint": {
+    "rules": {
+      "tags": ["recommended", "fresh"],
+      "exclude": [
+        "import-prefix-missing",
+        "no-inner-declarations",
+        "no-local",
+        "no-this-alias",
+        "require-await",
+        "no-explicit-any"
+      ]
+    }
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2,
+    "singleQuote": false,
+    "proseWrap": "preserve"
+  },
+  "imports": {
+    "$fresh/": "https://deno.land/x/fresh@1.6.8/",
+    "preact-render-to-string": "https://esm.sh/v135/*preact-render-to-string@5.2.6",
+    "preact-render-to-string/": "https://esm.sh/v135/*preact-render-to-string@5.2.6/",
+    "preact": "https://esm.sh/preact@10.19.6",
+    "preact/": "https://esm.sh/preact@10.19.6/"
+  },
+  "exclude": ["**/_fresh/*"],
+  "scopes": {}
+}
