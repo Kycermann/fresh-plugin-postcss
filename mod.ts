@@ -17,8 +17,6 @@ export const postCssPlugin = (options?: PostCssOptions) => {
     ...(options ?? {}),
   };
 
-  const optimisedAssetPath = optionsWithDefaults.asset("/styles.min.css");
-
   return {
     name: "fresh-plugin-postcss",
 
@@ -60,7 +58,7 @@ export const postCssPlugin = (options?: PostCssOptions) => {
           links: [{
             rel: "stylesheet",
             type: "text/css",
-            href: optimisedAssetPath,
+            href: optionsWithDefaults.asset("/styles.min.css"),
           }],
         };
       }
