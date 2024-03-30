@@ -1,4 +1,6 @@
 {
+  "version": "2.1.0",
+  "exports": "./mod.ts",
   "tasks": {
     "format": "deno fmt",
     "format:check": "deno fmt --check",

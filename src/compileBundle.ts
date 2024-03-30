@@ -1,4 +1,5 @@
 import { POSTCSS_MODULE_PATH, WALK_MODULE_PATH } from "../constants.ts";
+import { importWithoutBundling } from "./importWithoutBundling.ts";
 import { PostCssOptions } from "../types.ts";
 
 export async function compileBundle({ walkPath, exts, plugins }: PostCssOptions) {
@@ -8,12 +9,12 @@ export async function compileBundle({ walkPath, exts, plugins }: PostCssOptions)
     { default: postcss },
     resolvedPlugins,
   ] = await Promise.all([
-    import(WALK_MODULE_PATH),
-    import(POSTCSS_MODULE_PATH),
+    importWithoutBundling(WALK_MODULE_PATH),
+    importWithoutBundling(POSTCSS_MODULE_PATH),
     (async () => {
       // Resolve the plugins if {plugins} is a function
       if (typeof plugins === "function") {
-        return await plugins();
+        return await plugins({ importWithoutBundling });
       }
 
       return plugins;

@@ -1,15 +1,3 @@
-// Use trickery to avoid static analysis (and bundling!)
-// We trust that deno.land/x will work
-
-const BASE = "https://deno.land/";
-
-let count = 0;
-
-function getExtension() {
-  // PostCSS is a JS module
-  return (++count) === 3 ? ".js" : ".ts";
-}
-
-export const WALK_MODULE_PATH = [BASE, "std@0.220.1/fs/walk", getExtension()].join("");
-export const PATH_MODULE_PATH = [BASE, "std@0.220.1/path/mod", getExtension()].join("");
-export const POSTCSS_MODULE_PATH = [BASE, "x/postcss@8.4.16/mod", getExtension()].join("");
+export const WALK_MODULE_PATH = "https://deno.land/std@0.220.1/fs/walk.ts";
+export const PATH_MODULE_PATH = "https://deno.land/std@0.220.1/path/mod.ts";
+export const POSTCSS_MODULE_PATH = "https://deno.land/x/postcss@8.4.16/mod.js";

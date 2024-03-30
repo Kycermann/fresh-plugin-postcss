@@ -5,7 +5,7 @@ import { PATH_MODULE_PATH } from "./constants.ts";
 const defaultOptions = {
   walkPath: "./static",
   exts: ["css"],
-  plugins: [] as any[] | (() => Promise<any[]>),
+  plugins: [] as any[],
   asset: (path: string) => path,
 } satisfies PostCssOptions;
 

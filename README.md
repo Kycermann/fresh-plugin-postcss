@@ -16,7 +16,7 @@ import { compileArticles } from "./utils/article.js";
 import { compilePostCss } from "./utils/postcss.ts";
 
 // Use any plugins you want
-import { postCssPlugin } from "https://deno.land/x/fresh-plugin-postcss@1.0.0/mod.ts";
+import { postCssPlugin } from "https://deno.land/x/fresh-plugin-postcss@2.1.0/mod.ts";
 
 export const config = {
   plugins: [
@@ -26,17 +26,16 @@ export const config = {
       exts: ["css"],
       walkPath: "./static",
 
-      // Add your PostCSS plugins
-      // {plugins} can be an array or an async function that returns an array
-      // I suggest the async function because PostCSS plugins are not needed
-      // in production (if you use Fresh's build step)
-      async plugins() {
+      // Add your PostCSS plugins (instead of a function, you can give a plugins array)
+      // {importWithoutBundling} is like import but avoids static analysis
+      // to prevent bundling your build plugins into the bundle used in production
+      async plugins({ importWithoutBundling }) {
         const [
           { default: cssAutoprefixer },
           { default: cssPresetEnv },
         ] = await Promise.all([
-          import("npm:autoprefixer@10.4.19"),
-          import("npm:postcss-preset-env@9.5.2"),
+          importWithoutBundling("npm:autoprefixer@10.4.19"),
+          importWithoutBundling("npm:postcss-preset-env@9.5.2"),
         ]);
 
         return [
